@@ -1,5 +1,5 @@
 
-const PizzaList = ({ pizzas, addPizza }) => {
+function PizzaList({ pizzas, addPizza }) {
     return (
         <div>
             <h2>Menu</h2>
@@ -12,9 +12,7 @@ const PizzaList = ({ pizzas, addPizza }) => {
                 ))}
             </ul>
         </div>
-    )
+    );
 }
 
-export default PizzaList
-
-
+export default PizzaList;
