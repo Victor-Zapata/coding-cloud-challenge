@@ -1,29 +1,12 @@
-Frontend
-========
+# React + Vite
 
-To better assess a candidates development skills, we would like to provide the following challenge. This is intendend to be developed within an hour of time.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Prerequisites
--------------
+Currently, two official plugins are available:
 
-* [Git](http://git-scm.com/)
-* [npm](https://www.npmjs.org/)
-* [reactjs](https://reactjs.org/)
-* [axios](https://axios-http.com/es/docs/intro)
-* [jest](https://jestjs.io/)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-* You can use any additional libraries you want.
+## Expanding the ESLint configuration
 
-
-Project description
--------------------
-
-We want to develop a small web app that allows users to order pizza.
-
-This client will interface with the API built in the backend portion of the challenge.
-
-First of all should display the list of pizzas with ingredients and prices. Data will be loaded from `/api/pizzas`.
-
-When the user chooses something from the list the order summary will update dynamically.
-
-There will be a button to confirm the order. An Axios call will be performed to `/api/order` and the result will be displayed as a message like this: "Your order is cofirmed. Order summary: ...".
+If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
