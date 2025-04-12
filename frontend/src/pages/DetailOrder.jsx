@@ -7,7 +7,7 @@ const DetailOrder = () => {
     const params = useParams();
 
     useEffect(() => {
-        api.get(`orders/${params.id}`).then(res => setOrder(res.data));
+        api.get(`/api/orders/${params.id}`).then(res => setOrder(res.data));
     }, [params.id]);
 
     if (!order) {
