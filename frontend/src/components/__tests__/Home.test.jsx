@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import Home from '../src/pages/Home'; // Subimos un nivel y luego entramos a src/pages
-import api from '../src/api'; // Importa la instancia de axios
+import Home from '../../pages/Home'; // Subimos un nivel y luego entramos a src/pages
+import api from '../../api'; // Importa la instancia de axios
 import { BrowserRouter } from 'react-router-dom'; // Necesario para useNavigate
 import '@testing-library/jest-dom';
 

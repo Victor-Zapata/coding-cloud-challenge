@@ -37,7 +37,7 @@ describe('<DetailOrder />', () => {
   test('renderiza los detalles de la orden correctamente cuando se cargan los datos', async () => {
     await act(async () => {
       render(<DetailOrder />);
-      await waitFor(() => expect(screen.getByText((content) => content.startsWith('🍕 Orden #123'))).toBeInTheDocument());
+      await waitFor(() => expect(screen.getByText('🍕 Orden #123')).toBeInTheDocument()); // Intenta con el string directamente
     });
 
     expect(screen.getByText((content) => content.startsWith('🍕 Orden #123'))).toBeInTheDocument();
@@ -64,9 +64,8 @@ describe('<DetailOrder />', () => {
     api.get.mockResolvedValue({ data: { id: '456', items: [] } });
     await act(async () => {
       render(<DetailOrder />);
-      await waitFor(() => expect(screen.getByText((content) => content.startsWith('🍕 Orden #456'))).toBeInTheDocument());
+      await waitFor(() => expect(screen.getByText('🍕 Orden #456')).toBeInTheDocument()); 
     });
     expect(screen.getByText('Artículos de la Orden')).toBeInTheDocument();
-    // Puedes agregar más aserciones si tu componente muestra un mensaje específico para órdenes sin items
   });
 });
