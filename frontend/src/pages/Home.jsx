@@ -12,7 +12,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        api.get('/api/pizzas').then(res => setRawPizzas(res.data));
+        api.get('api/pizzas').then(res => setRawPizzas(res.data));
     }, []);
 
     // Asignar el nombre como ID a cada pizza
@@ -38,11 +38,11 @@ const Home = () => {
 
     const submitOrder = () => {
         const items = order.map(item => ({
-            pizzaId: item.id, // será el nombre de la pizza
+            pizzaId: item.name, 
             quantity: item.quantity,
         }));
-
-        api.post('/api/orders', { items })
+        console.log(items);
+        api.post('api/orders', { items })
             .then(res => {
                 setMessage(`✅ Orden confirmada: ID ${res.data.id}`);
                 setOrder([]);
