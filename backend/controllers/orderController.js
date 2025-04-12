@@ -1,16 +1,8 @@
+// me traigo las pizzas y las guardo en una variable
 const pizzas = require('../data/example-pizzas.json');
 
-let orders = [
-    {
-      id: 1,
-      items: [
-        {
-          pizza: pizzas[0],
-          quantity: 2,
-        },
-      ],
-    },
-  ];
+//creo un array de ordenes
+let orders = [];
    
 let nextOrderId = 1;
 
@@ -37,7 +29,7 @@ const createOrder = (req, res) => {
   }
 
   const orderItems = items.map(item => {
-    const pizza = pizzas.find(p => p.id === item.pizzaId);
+    const pizza = pizzas.find(p => p.name === item.pizzaId);
     if (!pizza) {
       throw new Error(`Pizza with ID ${item.pizzaId} not found`);
     }
