@@ -3,7 +3,7 @@ const pizzas = require('../data/example-pizzas.json');
 
 //creo un array de ordenes
 let orders = [];
-   
+
 let nextOrderId = 1;
 
 const getAllOrders = (req, res) => {
@@ -22,30 +22,36 @@ const getOrderById = (req, res) => {
 };
 
 const createOrder = (req, res) => {
-  const { items } = req.body;
-
-  if (!items || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ message: 'Order must have items' });
+  // Verifica si hay errores de validación
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
 
-  const orderItems = items.map(item => {
-    const pizza = pizzas.find(p => p.name === item.pizzaId);
-    if (!pizza) {
-      throw new Error(`Pizza with ID ${item.pizzaId} not found`);
-    }
-    return {
-      pizza,
-      quantity: item.quantity || 1,
+  const { items } = req.body;
+
+  try {
+    const orderItems = items.map(item => {
+      const pizza = pizzas.find(p => p.name === item.pizzaId);
+      if (!pizza) {
+        throw new Error(`Pizza con ID ${item.pizzaId} not found`);
+      }
+      return {
+        pizza,
+        quantity: item.quantity || 1,
+      };
+    });
+
+    const order = {
+      id: nextOrderId++,
+      items: orderItems,
     };
-  });
 
-  const order = {
-    id: nextOrderId++,
-    items: orderItems,
-  };
-
-  orders.push(order);
-  res.status(201).json(order);
+    orders.push(order);
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(400).json({ message: error.message }); // Devuelve un error 400 si la pizza no se encuentra
+  }
 };
 
 module.exports = {
