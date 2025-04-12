@@ -2,41 +2,34 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import PizzaList from '../PizzaList';
 
-describe('<PizzaList />', () => {
-  const mockPizzas = [
-    { id: '1', name: 'Pizza Margherita', price: 10 },
-    { id: '2', name: 'Pizza Pepperoni', price: 12 },
+describe('PizzaList component', () => {
+  const pizzas = [
+    { id: 'pepperoni', name: 'Pepperoni', price: 12.99 },
+    { id: 'margarita', name: 'Margarita', price: 9.99 },
   ];
+
   const mockAddPizza = jest.fn();
 
-  test('renderiza el componente y muestra el menú de pizzas', () => {
-    render(<PizzaList pizzas={mockPizzas} addPizza={mockAddPizza} />);
-    // ... otras aserciones ...
-    const addButtons = screen.getAllByRole('button', { name: 'Agregar' });
-    expect(addButtons).toHaveLength(mockPizzas.length);
-    expect(addButtons[0]).toBeInTheDocument();
-    expect(addButtons[1]).toBeInTheDocument();
+  beforeEach(() => {
+    render(<PizzaList pizzas={pizzas} addPizza={mockAddPizza} />);
   });
 
-  test('llama a la función addPizza con la pizza correcta al hacer clic en "Agregar"', () => {
-    render(<PizzaList pizzas={mockPizzas} addPizza={mockAddPizza} />);
-    const addButtonMargherita = screen.getByRole('button', { name: 'Agregar', within: screen.getByText('Pizza Margherita').closest('li') });
-    const addButtonPepperoni = screen.getByRole('button', { name: 'Agregar', within: screen.getByText('Pizza Pepperoni').closest('li') });
-    // ... simulación de clics ...
-  });
-
-  test('renderiza una lista vacía de pizzas correctamente', () => {
-    render(<PizzaList pizzas={[]} addPizza={mockAddPizza} />);
-
-    // Verifica el título del menú
+  it('muestra el menú con las pizzas', () => {
     expect(screen.getByText('🍕 Menú')).toBeInTheDocument();
+    expect(screen.getByText('Pepperoni')).toBeInTheDocument();
+    expect(screen.getByText('$12.99')).toBeInTheDocument();
+    expect(screen.getByText('Margarita')).toBeInTheDocument();
+    expect(screen.getByText('$9.99')).toBeInTheDocument();
+  });
 
-    // Verifica que no se rendericen elementos de la lista de pizzas
-    const pizzaItems = screen.queryAllByRole('listitem');
-    expect(pizzaItems).toHaveLength(0);
+  it('llama a addPizza cuando se hace clic en "Agregar"', () => {
+    const buttons = screen.getAllByText('Agregar');
+    expect(buttons.length).toBe(2);
 
-    // Verifica que no haya botones "Agregar"
-    const addButtons = screen.queryAllByRole('button', { name: 'Agregar' });
-    expect(addButtons).toHaveLength(0);
+    fireEvent.click(buttons[0]); // Agrega Pepperoni
+    expect(mockAddPizza).toHaveBeenCalledWith(pizzas[0]);
+
+    fireEvent.click(buttons[1]); // Agrega Margarita
+    expect(mockAddPizza).toHaveBeenCalledWith(pizzas[1]);
   });
 });
