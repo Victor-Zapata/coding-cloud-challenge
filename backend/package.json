@@ -4,7 +4,8 @@
   "description": "API for a pizza restaurant",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node server.js"
   },
   "author": "Victor Zapata",
   "license": "ISC",
