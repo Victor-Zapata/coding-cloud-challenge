@@ -12,7 +12,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        api.get('/pizzas').then(res => setRawPizzas(res.data));
+        api.get('/api/pizzas').then(res => setRawPizzas(res.data));
     }, []);
 
     // Asignar el nombre como ID a cada pizza
