@@ -22,6 +22,6 @@ const createOrderValidation = [
 
 router.get('/', orderController.getAllOrders);
 router.get('/:id', orderController.getOrderById);
-router.post('/', orderController.createOrder);
+router.post('/', createOrderValidation, orderController.createOrder);
 
 module.exports = router;

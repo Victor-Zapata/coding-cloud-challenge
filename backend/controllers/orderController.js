@@ -1,5 +1,7 @@
+
 // me traigo las pizzas y las guardo en una variable
 const pizzas = require('../data/example-pizzas.json');
+const { validationResult } = require('express-validator');
 
 //creo un array de ordenes
 let orders = [];
@@ -22,19 +24,19 @@ const getOrderById = (req, res) => {
 };
 
 const createOrder = (req, res) => {
-  // Verifica si hay errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
   const { items } = req.body;
+  console.log('🧾 Items recibidos en orden:', items);
 
   try {
     const orderItems = items.map(item => {
       const pizza = pizzas.find(p => p.name === item.pizzaId);
       if (!pizza) {
-        throw new Error(`Pizza con ID ${item.pizzaId} not found`);
+        throw new Error(`Pizza con nombre "${item.pizzaId}" no encontrada`);
       }
       return {
         pizza,
@@ -50,9 +52,12 @@ const createOrder = (req, res) => {
     orders.push(order);
     res.status(201).json(order);
   } catch (error) {
-    res.status(400).json({ message: error.message }); // Devuelve un error 400 si la pizza no se encuentra
+    console.error('🔥 Error en createOrder:', error.message);
+    res.status(500).json({ message: error.message });
   }
 };
+
+
 
 module.exports = {
   getAllOrders,
