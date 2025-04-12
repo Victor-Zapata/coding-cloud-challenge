@@ -49,7 +49,7 @@ const Home = () => {
                 navigate(`/order/${res.data.id}`)
                 setTimeout(() => {
                     navigate('/')
-                }, 4000);
+                }, 5000);
             })
             .catch(() => setMessage("❌ Error al enviar la orden."));
     };
