@@ -42,7 +42,7 @@ const Home = () => {
             quantity: item.quantity,
         }));
 
-        api.post('/orders', { items })
+        api.post('/api/orders', { items })
             .then(res => {
                 setMessage(`✅ Orden confirmada: ID ${res.data.id}`);
                 setOrder([]);
