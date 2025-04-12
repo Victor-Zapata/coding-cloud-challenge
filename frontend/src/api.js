@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api'
+    baseURL: 'https://pizza-backend-j8w0.onrender.com'
 })
 
 export default api;
